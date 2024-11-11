@@ -1,7 +1,7 @@
 module Filter::Fields
   extend ActiveSupport::Concern
 
-  INDEXES = %w[ most_active most_discussed most_boosted newest oldest popped ]
+  INDEXES = %w[ most_discussed most_boosted newest oldest popped ]
 
   class_methods do
     def default_fields
