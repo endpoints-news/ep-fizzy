@@ -1,4 +1,6 @@
 <% bubble.tags.each do |tag| %>
-  <%= link_to tag.hashtag, bubbles_path(@filter.to_params.merge(tag_ids: [ tag.id ])),
-        class: "btn btn--plain fill-transparent", style: "color: #{bubble.color}" %>
+  <%= link_to bubbles_path(@filter.to_params.merge(tag_ids: [ tag.id ])),
+        class: "bubble__tag btn btn--plain fill-transparent min-width", style: "color: #{bubble.color}" do %>
+    <span class="overflow-ellipsis"><%= tag.hashtag %></span>
+  <% end %>
 <% end %>

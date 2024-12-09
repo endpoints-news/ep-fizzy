@@ -29,7 +29,6 @@
   color: var(--bubble-color, currentColor);
   container-type: inline-size;
   display: grid;
-  max-inline-size: 100%;
   place-items: center;
   position: relative;
   transition: 0.2s ease;
@@ -119,7 +118,7 @@
   &.bubble__assignee {
     aspect-ratio: 1;
     font-size: 4.5cqi;
-    inset: 6cqb auto auto -2cqi;
+    inset: 6cqb auto auto -5cqi;
     padding: 0.2em;
 
     + & {
@@ -284,6 +283,10 @@
   inset: 0;
   position: absolute;
   z-index: -1;
+
+  .windshield & {
+    z-index: 1;
+  }
 }
 
 .bubble__perma {
@@ -292,13 +295,20 @@
   max-inline-size: 100%;
 }
 
-.bubble__tags{
+.bubble__tags {
+  --row-gap: 0;
+
   font-size: var(--text-small);
   margin-block-start: 0.3cqb;
+  max-inline-size: 75cqi;
 
   .bubble__perma & {
     font-size: var(--text-medium);
   }
+}
+
+.bubble__tag {
+  max-inline-size: 75cqi;
 }
 
 .bubble__title {

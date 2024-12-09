@@ -19,10 +19,9 @@
   padding: var(--gap);
 }
 
-.bucket__edit-btn {
+.bucket__button {
   position: absolute;
-  inset-block-end: 0;
-  inset-inline-end: 0;
+  inset: calc((var(--btn-size) * -1) - 2cqi) 1cqi auto auto;
 }
 
 .bucket__windshield {

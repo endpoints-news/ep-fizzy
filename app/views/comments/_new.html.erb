@@ -1,14 +1,9 @@
-<div class="comment flex align-start full-width comment--mine">
-  <figure class="comment__avatar avatar fill-black txt-reversed flex-item-no-shrink"><strong><%= Current.user.initials %></strong></figure>
-
-  <div class="comment__content flex flex-column full-width">
-    <div class="comment__author flex align-center gap-half">
-      <strong><%= Current.user.name %></strong>
-    </div>
-    <div class="comment__body txt-align-start margin-block-start-half">
+<div class="comment flex align-start full-width comment--mine margin-block-end-double">
+  <div class="flex flex-column full-width">
+    <div class="position-relative">
       <%= form_with model: Comment.new, url: bucket_bubble_comments_path(bubble.bucket, bubble), class: "flex flex-column gap full-width", data: { controller: "form", action: "keydown.meta+enter->form#submit" } do |form| %>
-        <%= form.markdown_area :body, class: "input border border-radius", required: true, placeholder: new_comment_placeholder(bubble) %>
-        <%= form.button class: "btn btn--reversed center" do %>
+        <%= form.markdown_area :body, class: "input comment__input", required: true, placeholder: new_comment_placeholder(bubble) %>
+        <%= form.button class: "comment__submit btn btn--reversed flex-item-justify-end txt-small" do %>
           <%= image_tag "check.svg", aria: { hidden: "true" }, size: 24 %>
           <span class="for-screen-reader">Save</span>
         <% end %>

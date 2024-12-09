@@ -2,12 +2,12 @@
     data-controller="animation" data-animation-play-class="bubble--wobble" data-animation-play-on-load-value="true" data-action="mouseover->animation#play">
   <div class="bubble__shape flex-item-no-shrink"></div>
 
-  <div class="flex flex-column">
+  <div class="flex flex-column min-width">
     <%= link_to bucket_bubble_path(bubble.bucket, bubble), class: "bubble__title-link flex align-center gap min-width" do %>
       <strong class="bubble__title-text flex--inline gap-half overflow-ellipsis"><%= bubble.title %></strong>
     <% end %>
 
-    <div class="flex align-end gap-half txt-small">
+    <div class="flex align-end gap-half txt-small full-width">
       <%= render "bubbles/tags", bubble: bubble %>
     </div>
   </div>

@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 ruby file: ".ruby-version"
 
-gem "rails", ">= 8.0.0.rc1"
+gem "rails", github: "rails/rails", branch: "main"
 
 # Assets & front end
 gem "importmap-rails"

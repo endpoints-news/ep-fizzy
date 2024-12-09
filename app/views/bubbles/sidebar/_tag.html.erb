@@ -1,12 +1,21 @@
-<details name="assignments" class="position-relative" data-controller="expandable" data-action="focusout->expandable#closeOnFocusOutside">
-  <summary class="btn full-width justify-start borderless">
+<div name="assignments" class="position-relative" data-controller="dialog" data-action="keydown.esc->dialog#close click@document->dialog#closeOnClickOutside">
+  <button class="btn full-width justify-start borderless" data-action="click->dialog#open:stop">
     <%= image_tag "tag.svg", aria: { hidden: true }, size: 24 %>
     <span>Tag this</span>
-  </summary>
+  </button>
 
-  <%= form_with url: bucket_bubble_tagging_toggles_path(bubble.bucket, bubble), data: { controller: "form" } do |form| %>
-    <%= form.combobox :tag_id, tags, required: true, name_when_new: "tag_title",
-          render_in: { partial: "bubbles/tags/listbox_option", as: :tag, locals: { bubble: bubble } },
-          data: { controller: "autofocus", action: "hw-combobox:selection->form#submit" } %>
-  <% end %>
-</details>
+  <dialog class="combox-popup panel align-center gap-half fill-white shadow" data-dialog-target="dialog">
+    <%= form_with url: bucket_bubble_tagging_toggles_path(bubble.bucket, bubble), class: "min-width", data: { controller: "form" } do |form| %>
+      <%= form.combobox :tag_id, tags, required: true, name_when_new: "tag_title",
+            render_in: { partial: "bubbles/tags/listbox_option", as: :tag, locals: { bubble: bubble } },
+            data: { controller: "autofocus", action: "hw-combobox:selection->form#submit" } %>
+    <% end %>
+
+    <form method="dialog">
+      <button class="btn txt-small" title="Close (esc)">
+        <%= image_tag "remove.svg", aria: { hidden: true }, size: 24 %>
+        <span class="for-screen-reader">Close</span>
+      </button>
+    </form>
+  </dialog>
+</div>

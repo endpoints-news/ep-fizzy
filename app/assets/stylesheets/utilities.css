@@ -69,8 +69,8 @@
 }
 
 .gap-half {
-  column-gap: var(--inline-space-half);
-  row-gap: var(--block-space-half);
+  column-gap: var(--column-gap, var(--inline-space-half));
+  row-gap: var(--row-gap, var(--block-space-half));
 }
 
 /* Sizing */

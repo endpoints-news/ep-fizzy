@@ -65,7 +65,9 @@
 }
 
 .color-picker {
+  --panel-border-color: var(--bubble-color);
   --panel-border-radius: 2em;
+  --panel-border-size: 2px;
   --panel-padding: 0.5em 0.7em;
   --panel-size: auto;
 
