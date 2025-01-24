@@ -24,7 +24,7 @@
 
   <% if bubble.due_on.present? %>
     <time class="txt-nowrap txt-small fill-black txt-reversed border-radius" style="background-color: <%= bubble.color %>; padding: 0.3em 0.6em;">
-      <strong>DUE:</strong> <%= bubble.due_on.strftime("%b %d") %>
+      <%= bubble.due_on.strftime("%b %d") %>
     </time>
   <% end %>
 </li>
