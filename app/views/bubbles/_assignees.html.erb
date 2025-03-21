@@ -1,0 +1,18 @@
+<%= turbo_frame_tag bubble, :assignees do %>
+  <div class="flex">
+    <% bubble.assignees.each do |assignee| %>
+      <%= avatar_tag assignee, loading: :lazy, class: "avatar" %>
+    <% end %>
+
+    <div class="position-relative" data-controller="dialog" data-action="keydown.esc->dialog#close click@document->dialog#closeOnClickOutside">
+      <button class="btn card__hide-on-index <%= bubble.creating? || bubble.drafted? ? "fill-highlight" : "fill-transparent" %>" data-action="click->dialog#open:stop">
+        <%= image_tag "add.svg", aria: { hidden: true }, size: 24 %>
+        <span class="for-screen-reader">Assign</span>
+      </button>
+
+      <turbo-frame id="<%= dom_id(bubble, :assignment) %>">
+        <%= render "bubbles/sidebar/assignment", bubble: bubble %>
+      </turbo-frame>
+    </div>
+  </div>
+<% end %>

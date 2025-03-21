@@ -1,14 +1,9 @@
-<div class="position-relative" data-controller="dialog" data-action="keydown.esc->dialog#close click@document->dialog#closeOnClickOutside">
-  <button class="btn card__hide-on-index <%= bubble.creating? || bubble.drafted? ? "fill-highlight" : "fill-transparent" %>" data-action="click->dialog#open:stop">
-    <%= image_tag "add.svg", aria: { hidden: true }, size: 24 %>
-    <span class="for-screen-reader">Assign</span>
-  </button>
-
+<%= turbo_frame_tag bubble, :assignment do %>
   <dialog class="popup panel flex-column align-start gap-half fill-white shadow" data-dialog-target="dialog">
     <strong class="popup__title margin-block-start-half pad-inline-half txt-nowrap">Assign this to…</strong>
 
     <%= form_with url: bucket_bubble_assignment_toggles_path(bubble.bucket, bubble), class: "flex flex-column full-width popup__list", data: { controller: "form" } do |form| %>
-      <% users.sort_by(&:name).each do |user| %>
+      <% bubble.bucket.users.active.sort_by(&:name).each do |user| %>
         <div class="btn popup__item">
           <%= form.check_box "assignee_id[]", { 
             checked: bubble.assigned_to?(user),
@@ -23,4 +18,4 @@
       <% end %>
     <% end %>
   </dialog>
-</div>
+<% end %>
