@@ -137,6 +137,6 @@ class FilterTest < ActiveSupport::TestCase
     filter = seed_filter.with(indexed_by: "popped")
 
     assert filter.indexed_by.popped?
-    assert_equal ["haggis"], filter.terms
+    assert_equal [ "haggis" ], filter.terms
   end
 end
