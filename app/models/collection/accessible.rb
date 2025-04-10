@@ -28,6 +28,10 @@ module Collection::Accessible
     after_save_commit :grant_access_to_everyone
   end
 
+  def accessed_by(user)
+    access_for(user).accessed
+  end
+
   def access_for(user)
     accesses.find_by(user: user)
   end

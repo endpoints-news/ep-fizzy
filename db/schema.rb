@@ -12,11 +12,13 @@
 
 ActiveRecord::Schema[8.1].define(version: 2025_06_12_163028) do
   create_table "accesses", force: :cascade do |t|
+    t.datetime "accessed_at"
     t.integer "collection_id", null: false
     t.datetime "created_at", null: false
     t.string "involvement", default: "watching", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.index ["accessed_at"], name: "index_accesses_on_accessed_at", order: :desc
     t.index ["collection_id", "user_id"], name: "index_accesses_on_collection_id_and_user_id", unique: true
     t.index ["collection_id"], name: "index_accesses_on_collection_id"
     t.index ["user_id"], name: "index_accesses_on_user_id"

@@ -5,6 +5,18 @@ class Cards::ReadingsControllerTest < ActionDispatch::IntegrationTest
     sign_in_as :kevin
   end
 
+  test "create" do
+    freeze_time
+
+    assert_changes -> { notifications(:logo_published_kevin).reload.read? }, from: false, to: true do
+      assert_changes -> { accesses(:writebook_kevin).reload.accessed_at }, from: nil, to: Time.current do
+        post card_reading_url(cards(:logo)), as: :turbo_stream
+      end
+    end
+
+    assert_response :success
+  end
+
   test "read one notification on card visit" do
     assert_changes -> { notifications(:logo_published_kevin).reload.read? }, from: false, to: true do
       post card_reading_path(cards(:logo)), as: :turbo_stream
