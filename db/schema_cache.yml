@@ -374,7 +374,7 @@ columns:
   - *9
   cards:
   - *5
-  - &30 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+  - &31 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: title
     cast_type: *6
@@ -494,11 +494,11 @@ columns:
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: all_access
-    cast_type: &31 !ruby/object:ActiveModel::Type::Boolean
+    cast_type: &32 !ruby/object:ActiveModel::Type::Boolean
       precision:
       scale:
       limit:
-    sql_type_metadata: &32 !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
+    sql_type_metadata: &33 !ruby/object:ActiveRecord::ConnectionAdapters::SqlTypeMetadata
       sql_type: boolean
       type: :boolean
       limit:
@@ -627,7 +627,7 @@ columns:
     comment:
   filters_tags:
   - *18
-  - &29 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+  - &30 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: tag_id
     cast_type: *1
@@ -639,9 +639,9 @@ columns:
     comment:
   mentions:
   - *5
-  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
+  - &29 !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
-    name: container_type
+    name: source_type
     cast_type: *6
     sql_type_metadata: *7
     'null': false
@@ -651,7 +651,7 @@ columns:
     comment:
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
-    name: container_id
+    name: source_id
     cast_type: *1
     sql_type_metadata: *2
     'null': false
@@ -741,16 +741,7 @@ columns:
     default_function:
     collation:
     comment:
-  - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
-    auto_increment:
-    name: source_type
-    cast_type: *6
-    sql_type_metadata: *7
-    'null': false
-    default:
-    default_function:
-    collation:
-    comment:
+  - *29
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: source_id
@@ -860,12 +851,12 @@ columns:
   taggings:
   - *5
   - *21
-  - *29
+  - *30
   - *8
   - *9
   tags:
   - *5
-  - *30
+  - *31
   - *8
   - *9
   users:
@@ -894,8 +885,8 @@ columns:
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: active
-    cast_type: *31
-    sql_type_metadata: *32
+    cast_type: *32
+    sql_type_metadata: *33
     'null': false
     default: true
     default_function:
@@ -920,8 +911,8 @@ columns:
   - !ruby/object:ActiveRecord::ConnectionAdapters::SQLite3::Column
     auto_increment:
     name: watching
-    cast_type: *31
-    sql_type_metadata: *32
+    cast_type: *32
+    sql_type_metadata: *33
     'null': false
     default: true
     default_function:
@@ -1698,11 +1689,11 @@ indexes:
     valid: true
   - !ruby/object:ActiveRecord::ConnectionAdapters::IndexDefinition
     table: mentions
-    name: index_mentions_on_container
+    name: index_mentions_on_source
     unique: false
     columns:
-    - container_type
-    - container_id
+    - source_type
+    - source_id
     lengths: {}
     orders: {}
     opclasses: {}

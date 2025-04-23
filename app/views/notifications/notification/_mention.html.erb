@@ -2,6 +2,6 @@
 
 <strong class="overflow-ellipsis notification__title txt-small txt-tight-lines"><%= mention.mentioner.first_name %> mentioned you</strong>
 <div class="overflow-ellipsis txt-small txt-tight-lines">
-  <%= mention.container.mentionable_content.truncate(200) %>
+  <%= mention.source.mentionable_content.truncate(200) %>
 </div>
 <div class="tray__item-meta overflow-ellipsis translucent"> <%= local_datetime_tag(notification.created_at, style: :ago) %></div>

@@ -213,15 +213,15 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_22_112857) do
   end
 
   create_table "mentions", force: :cascade do |t|
-    t.integer "container_id", null: false
-    t.string "container_type", null: false
     t.datetime "created_at", null: false
     t.integer "mentionee_id", null: false
     t.integer "mentioner_id", null: false
+    t.integer "source_id", null: false
+    t.string "source_type", null: false
     t.datetime "updated_at", null: false
-    t.index ["container_type", "container_id"], name: "index_mentions_on_container"
     t.index ["mentionee_id"], name: "index_mentions_on_mentionee_id"
     t.index ["mentioner_id"], name: "index_mentions_on_mentioner_id"
+    t.index ["source_type", "source_id"], name: "index_mentions_on_source"
   end
 
   create_table "messages", force: :cascade do |t|

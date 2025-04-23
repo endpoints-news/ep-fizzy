@@ -1,18 +1,20 @@
 class Notifier::Mention < Notifier
+  alias mention source
+
   private
     def resource
-      source.container
+      mention.source
     end
 
     def recipients
-      if source.self_mention?
+      if mention.self_mention?
         []
       else
-        [ source.mentionee ]
+        [ mention.mentionee ]
       end
     end
 
     def creator
-      source.mentioner
+      mention.mentioner
     end
 end

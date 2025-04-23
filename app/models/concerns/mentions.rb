@@ -2,7 +2,7 @@ module Mentions
   extend ActiveSupport::Concern
 
   included do
-    has_many :mentions, as: :container, dependent: :destroy
+    has_many :mentions, as: :source, dependent: :destroy
     has_many :mentionees, through: :mentions
     before_save :remember_mentionable_content
     after_touch :remember_mentionable_content
