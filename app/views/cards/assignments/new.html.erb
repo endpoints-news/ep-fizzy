@@ -1,12 +1,26 @@
 <%= turbo_frame_tag @card, :assignment do %>
-  <strong class="popup__title pad-inline-half txt-nowrap">Assign this to…</strong>
+  <%= tag.div class: "max-width",data: {
+        controller: "filter", 
+				dialog_target: "dialog",
+				filter_active_class: "filter--active", 
+				filter_selected_class: "selected"} do %>
+    <strong class="popup__title pad-inline-half txt-nowrap">Assign this to…</strong>
 
-  <div class="flex flex-column full-width popup__list">
-    <% @collection.users.active.alphabetically.each do |user| %>
-        <%= button_to card_assignments_path(@card, params: { assignee_id: user.id }), method: :post, class: "btn popup__item full-width" do %>
-          <span class="overflow-ellipsis"><%= user.name %></span>
-          <%= icon_tag "check", size: 18, class: "checked flex-item-justify-end" if @card.assignees.include?(user) %>
-        <% end %>
+    <% if @collection.users.active.count > 1 %>
+      <input placeholder="Find someone…" class="input input--transparent txt-small margin-block-half" type="search" autocorrect="off" autocomplete="off" data-1p-ignore="true" data-action="input->filter#filter" autofocus>
     <% end %>
-  </div>
+
+    <menu class="flex flex-column full-width popup__list margin-none unpad max-width" data-filter-target="list">
+      <% @collection.users.active.alphabetically.each do |user| %>
+        <li class="popup__group flex align-center full-width" data-value="<%= user.name.downcase %>">
+          <%= button_to card_assignments_path(@card, params: { assignee_id: user.id }), method: :post, 
+              class: "btn popup__item min-width flex-item-grow full-width unpad-inline", 
+              form_class: "max-width flex-item-grow" do %>
+            <span class="overflow-ellipsis flex-item-grow"><%= user.name %></span>
+            <%= icon_tag "check", size: 18, class: "checked flex-item-no-shrink flex-item-justify-end", style: "--icon-size: 1em" if @card.assignees.include?(user) %>
+          <% end %>
+        </li>
+      <% end %>
+    </menu>
+  <% end %>
 <% end %>

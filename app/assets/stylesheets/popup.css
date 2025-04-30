@@ -26,6 +26,11 @@
         max-inline-size: 40ch;
       }
     }
+
+    .card & {
+      min-inline-size: 25ch;
+      max-inline-size: 25ch;
+    }
   }
 
   .popup__group {
