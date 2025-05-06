@@ -19,6 +19,8 @@ class Command::Parser::Context
   end
 
   private
+    attr_reader :controller, :action, :params
+
     def extract_url_components(url)
       uri = URI.parse(url)
       route = Rails.application.routes.recognize_path(uri.path)
@@ -26,6 +28,4 @@ class Command::Parser::Context
       @action = route[:action]
       @params = Rack::Utils.parse_nested_query(uri.query)
     end
-
-    attr_reader :controller, :action, :params
 end
