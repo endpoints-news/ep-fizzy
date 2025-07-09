@@ -9,9 +9,9 @@
 <header class="header" style="--header-actions-width: 7rem;">
   <div class="header__actions header__actions--start">
     <% if collection = @filter.single_collection || Current.user.collections.first %>
-      <%= button_to collection_cards_path(collection), method: :post, class: "btn btn--link" do %>
+      <%= button_to collection_cards_path(collection), method: :post, class: "btn btn--link btn--circle-mobile" do %>
         <%= icon_tag "add" %>
-        Add a card
+        <span>Add a card</span>
       <% end %>
     <% end %>
   </div>
