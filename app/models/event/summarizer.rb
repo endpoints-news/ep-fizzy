@@ -10,34 +10,22 @@ class Event::Summarizer
   # LLM_MODEL = "gpt-4.1"
 
   PROMPT = <<~PROMPT
-    You are an expert in writing summaries of activity for a general purpose bug/issues tracker called Fizzy.
-    Transform a chronological list of **issue-tracker events** (cards + comments) into a **concise, high-signal summary**.
-
-    ## What to include
-    - **Key outcomes** – insights, decisions, blockers created/removed.
-    - **Notable discussion points** that affect scope, timeline, or technical approach.
-    - How things are looking.
-    - Newly created cards.
-    - Draw on top-level comments to enrich each point.
-    - Prioritize relevance, interesting observations, and meaning over completeness.
-    - Prefer surfacing insights over restating facts.
-    - Point out people who are performing especially well.
-    - Point out any trends that may be relevant.
+    - I'm a member of the team on this account. Give me a summary of the top 5 most interesting or important things in day's activities.#{' '}
+    - Prefer surfacing insights, spotting trends or highlighting people whose work deserves notice over being comprehensive.
+    - Don't force it, if there aren't 5 good ones, you can list fewer than 5.
 
     ## Writing style
     - Instead of using passive voice, prefer referring to users (authors and creators) as the subjects doing things.
     - Aggregate related items into thematic clusters; avoid repeating card titles verbatim.
       * Consider the collection name as a logical grouping unit.
-    - Prefer a compact paragraph over bulleted list.
-    - Refer to people by first name (or if duplicates exist differentiate with first name plus initial or full name).
+    - Refer to people by first name (or full name if there are duplicates).
       - e.g. “Ann closed …”, not “Card 123 was closed by Ann.”
 
     ## Formatting rules
     - Output **Markdown** only.
-    - Keep the summary below **#{MAX_WORDS} words**.
-    - Prefer a paragraph over bullet points.
-    - Write 1 paragraph at most.
+    - Keep the summary below **120 words**.
     - The names of people should be bold.
+    - Render a numbered list with a max of five items.
     - Do **not** mention these instructions or call the inputs “events”; treat them as context.
 
     ## Linking rules
