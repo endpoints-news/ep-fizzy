@@ -7,7 +7,8 @@ export default class extends Controller {
     reverseOrder: { type: Boolean, default: false },
     selectionAttribute: { type: String, default: "aria-selected" },
     focusOnSelection: { type: Boolean, default: true },
-    actionableItems: { type: Boolean, default: false }
+    actionableItems: { type: Boolean, default: false },
+    reverseNavigation: { type: Boolean, default: false }
   }
 
   connect() {
@@ -51,7 +52,9 @@ export default class extends Controller {
   // Private
 
   get #visibleItems() {
-    return this.itemTargets.filter(item => !item.hidden)
+    return this.itemTargets.filter(item => {
+      return item.checkVisibility() && !item.hidden
+    })
   }
 
   #selectPrevious() {
@@ -113,10 +116,12 @@ export default class extends Controller {
 
   #keyHandlers = {
     ArrowDown(event) {
-      this.#handleArrowKey(event, this.#selectNext.bind(this))
+      const selectMethod = this.reverseNavigationValue ? this.#selectPrevious.bind(this) : this.#selectNext.bind(this)
+      this.#handleArrowKey(event, selectMethod)
     },
     ArrowUp(event) {
-      this.#handleArrowKey(event, this.#selectPrevious.bind(this))
+      const selectMethod = this.reverseNavigationValue ? this.#selectNext.bind(this) : this.#selectPrevious.bind(this)
+      this.#handleArrowKey(event, selectMethod)
     },
     ArrowRight(event) {
       this.#handleArrowKey(event, this.#selectNext.bind(this), false)

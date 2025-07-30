@@ -19,6 +19,7 @@ export default class extends Controller {
       this.dialogTarget.show()
     }
     this.dialogTarget.setAttribute('aria-hidden', 'false')
+    this.dispatch("show")
   }
 
   toggle() {

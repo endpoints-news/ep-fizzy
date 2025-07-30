@@ -5,6 +5,16 @@
   .notifications-list {
     .tray__item {
       position: relative;
+
+      &[aria-selected] {
+        outline: 0;
+        
+        .card {
+          border-radius: 0.25ch;
+          outline: var(--focus-ring-size) solid var(--focus-ring-color);
+          outline-offset: var(--focus-ring-offset);
+        }
+      }
     }
 
     .card {

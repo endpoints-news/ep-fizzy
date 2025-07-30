@@ -7,7 +7,7 @@
 
     <dialog class="popup panel flex-column align-start gap-half fill-white shadow margin-block-double" data-dialog-target="dialog">
       <%= tag.div class: "max-width full-width", data: {
-          action: "turbo:before-cache@document->dialog#close keydown->navigable-list#navigate filter:changed->navigable-list#reset",
+          action: "turbo:before-cache@document->dialog#close dialog:show@document->navigable-list#reset keydown->navigable-list#navigate filter:changed->navigable-list#reset",
           controller: "filter navigable-list",
           dialog_target: "dialog",
           navigable_list_focus_on_selection_value: false,

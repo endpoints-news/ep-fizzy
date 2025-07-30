@@ -17,7 +17,8 @@
   </nav>
 <% end %>
 
-<div data-controller="badge" data-badge-unread-class="unread">
+<div data-controller="badge navigable-list" data-badge-unread-class="unread" data-action="keydown@document->navigable-list#navigate" data-navigable-list-actionable-items-value="true"
+      data-navigable-list-focus-on-selection-value="false">
   <section class="notifications-list panel center borderless unpad flex flex-column gap-half">
     <% if @unread.any? %>
       <div class="flex align-center justify-space-between margin-block-start margin-block-end-half">

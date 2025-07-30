@@ -7,7 +7,7 @@
     </button>
 
     <%= tag.dialog class: "margin-block-start-half popup panel flex-column align-start gap-half fill-white shadow txt-small", data: {
-				action: "turbo:before-cache@document->dialog#close keydown->navigable-list#navigate",
+				action: "turbo:before-cache@document->dialog#close keydown->navigable-list#navigate dialog:show@document->navigable-list#reset",
         aria: { label: "Sort by…", aria_description: "Sort by…" },
 				controller: "navigable-list",
 				dialog_target: "dialog",

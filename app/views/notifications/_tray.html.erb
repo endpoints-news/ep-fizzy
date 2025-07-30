@@ -2,43 +2,47 @@
 
 <section class="tray tray--notifications" data-controller="dialog badge" data-badge-unread-class="unread" data-action="turbo:render#update">
   <dialog class="tray__dialog"
-      data-dialog-modal-value="false" data-dialog-target="dialog"
-      data-action="keydown.esc->dialog#close:stop click@document->dialog#closeOnClickOutside">
+      data-controller="navigable-list"
+      data-dialog-target="dialog"
+      data-navigable-list-actionable-items-value="true"
+      data-navigable-list-reverse-navigation-value="true"
+      data-action="keydown->navigable-list#navigate dialog:show@document->navigable-list#reset turbo-visit->navigable-list#reset keydown.esc->dialog#close:stop click@document->dialog#closeOnClickOutside">
     <%= turbo_frame_tag "notifications", src: tray_notifications_path, refresh: "morph" %>
 
     <div class="tray__item tray__hat txt-x-small">
-      <%= link_to settings_notifications_path,
-            class: "btn borderless tray__notification-settings",
-            title: "Notification settings",
-            data: { action: "dialog#close" } do %>
-        <%= icon_tag "settings" %>
-        <span>Settings</span>
-      <% end %>
+      <div data-navigable-list-target="item">
+        <%= link_to settings_notifications_path,
+              class: "btn borderless tray__notification-settings",
+              title: "Notification settings",
+              data: { action: "dialog#close" } do %>
+          <%= icon_tag "settings" %>
+          <span>Settings</span>
+        <% end %>
+      </div>
 
-      <%= link_to notifications_path, class: "tray__new-notifications btn borderless flex-item-grow position-relative overflow-ellipsis", data: { action: "click->dialog#close" } do %>
-        <%= icon_tag "bell" %>
-        <span>See more new items</span>
-      <% end %>
-
-      <%= link_to notifications_path, class: "tray__old-notifications btn borderless flex-item-grow position-relative overflow-ellipsis", data: { action: "click->dialog#close" } do %>
-        <%= icon_tag "bell" %>
-        <span>See older items</span>
-      <% end %>
+      <div data-navigable-list-target="item">
+        <%= link_to notifications_path, class: "btn borderless flex-item-grow position-relative overflow-ellipsis", data: { action: "click->dialog#close" } do %>
+          <%= icon_tag "bell" %>
+          <span class="tray__new-notifications">See more new items</span>
+          <span class="tray__old-notifications">See older items</span>
+        <% end %>
+      </div>
 
       <%= button_to read_all_notifications_path,
             class: "btn borderless tray__clear-notifications",
             title: "Mark all notifications as read",
-            data: { action: "dialog#close badge#clear", turbo_frame: "notifications" } do %>
+            data: { action: "dialog#close badge#clear", turbo_frame: "notifications" },
+            form: { data: { navigable_list_target: "item" } } do %>
         <%= icon_tag "check" %>
         <span>Clear all</span>
       <% end %>
     </div>
   </dialog>
 
-  <button class="tray__toggle" data-action="dialog#toggle" aria-label="Toggle notifications stack" aria-haspopup="true">
+  <button class="tray__toggle" data-action="dialog#toggle keydown.n@document->hotkey#click" data-controller="hotkey" aria-label="Toggle notifications stack" aria-haspopup="true">
     <div class="tray__toggle-btn txt-uppercase btn btn--reversed txt-x-small center full-width">
       <%= icon_tag "bell" %>
-      <span class="tray__toggle-text">Notifications</span>
+      <span class="tray__toggle-text">Notifications <% if platform.desktop? -%><kbd>N</kbd><% end %></span>
     </div>
   </button>
 </section>
