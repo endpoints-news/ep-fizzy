@@ -1,0 +1,8 @@
+<div class="header__actions header__actions--start">
+  <% if collection = user_filtering.collections.first %>
+    <%= button_to collection_cards_path(collection), method: :post, class: "btn btn--link btn--circle-mobile" do %>
+      <%= icon_tag "add" %>
+      <span>Add a card</span>
+    <% end %>
+  <% end %>
+</div>
