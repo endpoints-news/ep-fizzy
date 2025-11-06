@@ -11,7 +11,7 @@ class Event::DescriptionTest < ActiveSupport::TestCase
   test "generates plain text description for card published event" do
     description = events(:logo_published).description_for(users(:david))
 
-    assert_includes description.to_plain_text, "You added"
+    assert_includes description.to_plain_text, "David added"
     assert_includes description.to_plain_text, "logo"
   end
 
@@ -21,10 +21,10 @@ class Event::DescriptionTest < ActiveSupport::TestCase
     assert_includes description.to_plain_text, "David commented on"
   end
 
-  test "uses 'You' when event creator is the current user" do
+  test "uses always the name even when the event creator is the current user" do
     description = events(:logo_published).description_for(users(:david))
 
-    assert_includes description.to_plain_text, "You added"
+    assert_includes description.to_plain_text, "David added"
   end
 
   test "uses creator name when event creator is not the current user" do

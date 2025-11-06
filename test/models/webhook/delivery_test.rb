@@ -219,7 +219,7 @@ class Webhook::DeliveryTest < ActiveSupport::TestCase
     assert_not Webhook::Delivery.exists?(stale_delivery.id)
   end
 
-  test "renders 'You' when event creator is current user" do
+  test "renders the creator name when event creator is current user" do
     webhook = Webhook.create!(
       board: boards(:writebook),
       name: "Basecamp",
@@ -231,7 +231,7 @@ class Webhook::DeliveryTest < ActiveSupport::TestCase
     Current.session = sessions(:david)
 
     request_stub = stub_request(:post, webhook.url)
-      .with { |request| CGI.parse(request.body)["content"].first.include?("You added") }
+      .with { |request| CGI.parse(request.body)["content"].first.include?("David added") }
       .to_return(status: 200)
 
     delivery.deliver

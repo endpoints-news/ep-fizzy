@@ -14,7 +14,7 @@ class Event::Description
   end
 
   def to_plain_text
-    to_sentence(creator_text, card.title)
+    to_sentence(creator_name, card.title)
   end
 
   private
@@ -37,8 +37,8 @@ class Event::Description
       tag.span card.title, class: "txt-underline"
     end
 
-    def creator_text
-      event.creator == user ? "You" : h(event.creator.name)
+    def creator_name
+      h(event.creator.name)
     end
 
     def card
