@@ -45,8 +45,7 @@
       min-block-size: 20lh;
     }
 
-    /* Hide on small, fat-finger touch devices */
-    @media (hover: none) and (pointer: coarse) and (max-width: 519px) {
+    @media (max-width: 519px) {
       display: none;
     }
   }
@@ -748,7 +747,7 @@
     padding-inline: 3vw;
 
     /* Hide on larger devices with cursors */
-    @media (hover: hover) and (min-width: 520px) {
+    @media (min-width: 520px) {
       display: none;
     }
 
