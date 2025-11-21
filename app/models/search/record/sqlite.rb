@@ -15,7 +15,7 @@ module Search::Record::SQLite
       self
     end
 
-    def matching_scope(query)
+    def matching_scope(query, account_id)
       joins("INNER JOIN search_records_fts ON search_records_fts.rowid = #{table_name}.id")
         .where("search_records_fts MATCH ?", query)
     end

@@ -23,8 +23,8 @@ class Search::Record < ApplicationRecord
     end
   end
 
-  scope :matching, ->(query) do
-    matching_scope(query)
+  scope :matching, ->(query, account_id) do
+    matching_scope(query, account_id)
   end
 
   scope :for_user, ->(user) do

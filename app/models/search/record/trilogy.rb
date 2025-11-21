@@ -30,9 +30,11 @@ module Search::Record::Trilogy
       Zlib.crc32(account_id.to_s) % SHARD_COUNT
     end
 
-    def matching_scope(query)
+    def matching_scope(query, account_id)
       stemmed_query = Search::Stemmer.stem(query)
-      where("MATCH(#{table_name}.content, #{table_name}.title) AGAINST(? IN BOOLEAN MODE)", stemmed_query)
+      account_key = "account#{account_id}"
+      full_query = "+#{account_key} +(#{stemmed_query})"
+      where("MATCH(#{table_name}.account_key, #{table_name}.content, #{table_name}.title) AGAINST(? IN BOOLEAN MODE)", full_query)
     end
 
     def search_scope(relation, query)
