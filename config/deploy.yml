@@ -30,7 +30,7 @@ env:
     - SMTP_USERNAME
     - SMTP_PASSWORD
   clear:
-    MAILER_FROM_ADDRESS: jguest@endpoints.news # The email address that Fizzy sends email from
+    MAILER_FROM_ADDRESS: notifications@endpoints.news # The email address that Fizzy sends email from
     SOLID_QUEUE_IN_PUMA: true # Run background jobs in the app container
 
 
