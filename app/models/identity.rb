@@ -11,6 +11,7 @@ class Identity < ApplicationRecord
   before_destroy :deactivate_users
 
   validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validate :email_domain_allowed
   normalizes :email_address, with: ->(value) { value.strip.downcase.presence }
 
   def send_magic_link(**attributes)
@@ -22,6 +23,15 @@ class Identity < ApplicationRecord
   end
 
   private
+    def email_domain_allowed
+      return if email_address.blank?
+      
+      allowed_domains = ["@endpoints.news", "@endpointsnews.com"]
+      unless allowed_domains.any? { |domain| email_address.end_with?(domain) }
+        errors.add(:email_address, "must be from an allowed domain")
+      end
+    end
+
     def deactivate_users
       users.find_each(&:deactivate)
     end

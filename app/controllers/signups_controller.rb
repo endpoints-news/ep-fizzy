@@ -11,11 +11,17 @@ class SignupsController < ApplicationController
   end
 
   def create
-    signup = Signup.new(signup_params)
-    if signup.valid?(:identity_creation)
-      redirect_to_session_magic_link signup.create_identity
+    @signup = Signup.new(signup_params)
+    if @signup.valid?(:identity_creation)
+      begin
+        redirect_to_session_magic_link @signup.create_identity
+      rescue ActiveRecord::RecordInvalid
+        flash.now[:alert] = "Only @endpoints.news and @endpointsnews.com email addresses are allowed."
+        render :new, status: :unprocessable_entity
+      end
     else
-      head :unprocessable_entity
+      flash.now[:alert] = "Please enter a valid email address."
+      render :new, status: :unprocessable_entity
     end
   end
 

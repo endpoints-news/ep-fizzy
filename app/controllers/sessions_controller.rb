@@ -14,9 +14,13 @@ class SessionsController < ApplicationController
     else
       signup = Signup.new(email_address: email_address)
       if signup.valid?(:identity_creation)
-        redirect_to_session_magic_link signup.create_identity
+        begin
+          redirect_to_session_magic_link signup.create_identity
+        rescue ActiveRecord::RecordInvalid
+          redirect_to new_session_path, alert: "Only @endpoints.news and @endpointsnews.com email addresses are allowed."
+        end
       else
-        head :unprocessable_entity
+        redirect_to new_session_path, alert: "Please enter a valid email address."
       end
     end
   end
