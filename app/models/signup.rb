@@ -47,9 +47,8 @@ class Signup
     def email_domain_allowed
       return if email_address.blank?
       
-      allowed_domains = ["@endpoints.news", "@endpointsnews.com"]
-      unless allowed_domains.any? { |domain| email_address.end_with?(domain) }
-        errors.add(:email_address, "must be an @endpoints.news or @endpointsnews.com email address")
+      unless DomainRestricted.allowed?(email_address)
+        errors.add(:email_address, DomainRestricted.error_message)
       end
     end
 

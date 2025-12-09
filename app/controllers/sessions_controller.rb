@@ -10,9 +10,8 @@ class SessionsController < ApplicationController
 
   def create
     # Check domain first before doing anything
-    allowed_domains = ["@endpoints.news", "@endpointsnews.com"]
-    unless allowed_domains.any? { |domain| email_address.end_with?(domain) }
-      redirect_to new_session_path, alert: "Only @endpoints.news and @endpointsnews.com email addresses are allowed."
+    unless DomainRestricted.allowed?(email_address)
+      redirect_to new_session_path, alert: DomainRestricted.error_message
       return
     end
 
@@ -24,7 +23,7 @@ class SessionsController < ApplicationController
         begin
           redirect_to_session_magic_link signup.create_identity
         rescue ActiveRecord::RecordInvalid
-          redirect_to new_session_path, alert: "Only @endpoints.news and @endpointsnews.com email addresses are allowed."
+          redirect_to new_session_path, alert: DomainRestricted.error_message
         end
       else
         redirect_to new_session_path, alert: "Please enter a valid email address."

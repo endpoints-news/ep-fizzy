@@ -26,8 +26,7 @@ class Identity < ApplicationRecord
     def email_domain_allowed
       return if email_address.blank?
       
-      allowed_domains = ["@endpoints.news", "@endpointsnews.com"]
-      unless allowed_domains.any? { |domain| email_address.end_with?(domain) }
+      unless DomainRestricted.allowed?(email_address)
         errors.add(:email_address, "must be from an allowed domain")
       end
     end

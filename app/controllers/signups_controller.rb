@@ -16,11 +16,11 @@ class SignupsController < ApplicationController
       begin
         redirect_to_session_magic_link @signup.create_identity
       rescue ActiveRecord::RecordInvalid
-        flash.now[:alert] = "Only @endpoints.news and @endpointsnews.com email addresses are allowed."
+        flash.now[:alert] = DomainRestricted.error_message
         render :new, status: :unprocessable_entity
       end
     else
-      flash.now[:alert] = "Please enter a valid email address."
+      flash.now[:alert] = @signup.errors.full_messages.first
       render :new, status: :unprocessable_entity
     end
   end
