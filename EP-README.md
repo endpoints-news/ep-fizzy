@@ -2,13 +2,13 @@
 
 This is a customized fork of [Fizzy](https://github.com/basecamp/fizzy) for Endpoints News.
 
-## Customizations
+## Customisations
 
 ### Domain Restriction
 Access to the application is restricted to specific email domains only. This prevents unauthorized signups and logins.
 
 **Implementation:**
-- `app/models/concerns/domain_restricted.rb` - Centralized domain validation logic
+- `app/models/concerns/domain_restricted.rb` - Centralised domain validation logic
 - Allowed domains: `@endpoints.news` and `@endpointsnews.com`
 - Enforced on both signup and login flows
 - Validation at the Identity model level prevents any unauthorized account creation
@@ -56,7 +56,7 @@ ruby -v
 
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
+git clone git@github.com:endpoints-news/ep-fizzy.git
 cd ep-fizzy
 ```
 
@@ -80,9 +80,9 @@ bin/dev
 
 ### Infrastructure
 - **Platform:** AWS EC2
-- **Instance Type:** (Specify your instance type, e.g., t3.medium)
-- **OS:** Debian/Ubuntu Linux
-- **Deployment Tool:** Kamal 2.x
+- **Instance Type:** t3.small
+- **OS:** Ubuntu
+- **Deployment Tool:** Kamal
 
 ### Server Requirements
 - Docker installed
@@ -98,7 +98,7 @@ bin/dev
 
 2. Update deployment configuration:
    - Edit `config/deploy.yml` with your server details
-   - Create `.kamal/secrets` with required environment variables (see main README.md)
+   - Create `.kamal/secrets` with required environment variables
 
 3. First deployment:
 ```bash
@@ -171,9 +171,9 @@ git push origin main
 bin/kamal deploy
 ```
 
-### Database Backups
+### EC2 Backups
 
-(Add your backup strategy here)
+Uses Data Lifecycle Manager to create daily snapshots of EC2 instance and store for 7 days.
 
 ## Support
 
