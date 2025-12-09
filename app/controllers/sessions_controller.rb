@@ -9,6 +9,13 @@ class SessionsController < ApplicationController
   end
 
   def create
+    # Check domain first before doing anything
+    allowed_domains = ["@endpoints.news", "@endpointsnews.com"]
+    unless allowed_domains.any? { |domain| email_address.end_with?(domain) }
+      redirect_to new_session_path, alert: "Only @endpoints.news and @endpointsnews.com email addresses are allowed."
+      return
+    end
+
     if identity = Identity.find_by_email_address(email_address)
       redirect_to_session_magic_link identity.send_magic_link
     else
