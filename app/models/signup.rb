@@ -7,6 +7,7 @@ class Signup
   attr_reader :account, :user
 
   validates :email_address, format: { with: URI::MailTo::EMAIL_REGEXP }, on: :identity_creation
+  validate :email_domain_allowed, on: :identity_creation
   validates :full_name, :identity, presence: true, on: :completion
 
   def initialize(...)
@@ -43,6 +44,15 @@ class Signup
   end
 
   private
+    def email_domain_allowed
+      return if email_address.blank?
+      
+      allowed_domains = ["@endpoints.news", "@endpointsnews.com"]
+      unless allowed_domains.any? { |domain| email_address.end_with?(domain) }
+        errors.add(:email_address, "must be an @endpoints.news or @endpointsnews.com email address")
+      end
+    end
+
     # Override to customize the handling of external accounts associated to the account.
     def create_tenant
       nil
